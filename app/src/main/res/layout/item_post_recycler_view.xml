@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_small"
+    android:layout_marginEnd="@dimen/margin_small"
+    app:cardElevation="@dimen/margin_xxxx_small">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/postDescriptionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:paddingStart="@dimen/margin_xx_small"
+            android:paddingEnd="@dimen/margin_xx_small"
+            android:textSize="@dimen/text_size_post"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Example of post in reddit.Example of post in reddit.Example of post in reddit. " />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/likedPostImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_xx_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:src="@drawable/ic_liked_post"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countOfLikedPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_xx_small"
+            android:textSize="@dimen/text_size_count_comments"
+            app:layout_constraintBottom_toBottomOf="@+id/likedPostImageView"
+            app:layout_constraintStart_toEndOf="@+id/likedPostImageView"
+            app:layout_constraintTop_toTopOf="@+id/likedPostImageView"
+            tools:text="2" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/commentsToPostImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:src="@drawable/ic_comments_post"
+            app:layout_constraintEnd_toEndOf="@+id/postDescriptionTextView"
+            app:layout_constraintStart_toStartOf="@+id/guideline0.7"
+            app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/countOfPostComments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_xx_small"
+            android:textSize="@dimen/text_size_count_comments"
+            app:layout_constraintBottom_toBottomOf="@+id/commentsToPostImageView"
+            app:layout_constraintStart_toEndOf="@+id/commentsToPostImageView"
+            app:layout_constraintTop_toTopOf="@+id/commentsToPostImageView"
+            tools:text="4" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline0.7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <View
+            android:id="@+id/bottomItemLine"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_x_medium"
+            android:background="@color/color_pale_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/likedPostImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
