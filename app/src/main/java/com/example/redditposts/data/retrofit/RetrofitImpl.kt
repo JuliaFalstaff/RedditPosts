@@ -1,6 +1,8 @@
-package com.example.redditposts.model.retrofit
+package com.example.redditposts.data.retrofit
 
 import androidx.viewbinding.BuildConfig
+import com.example.redditposts.domain.IRemoteRepository
+import com.example.redditposts.data.model.Root
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -8,7 +10,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitImpl {
+class RetrofitImpl: IRemoteRepository<Root> {
+    override suspend fun getHotRedditPosts(): Root {
+        return api.getHotRedditPosts().await()
+    }
 
     private val api by lazy {
         Retrofit.Builder()

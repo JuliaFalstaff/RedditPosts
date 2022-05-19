@@ -1,4 +1,4 @@
-package com.example.redditposts.model.data
+package com.example.redditposts.data.model
 
 import com.google.gson.annotations.SerializedName
 
