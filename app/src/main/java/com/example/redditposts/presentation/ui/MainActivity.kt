@@ -6,8 +6,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.example.redditposts.AppState
 import com.example.redditposts.databinding.ActivityMainBinding
+import com.example.redditposts.presentation.ui.adapter.RedditPostAdapter
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinScopeComponent
 import org.koin.core.component.createScope
 import org.koin.core.component.inject
@@ -19,14 +24,31 @@ class MainActivity : AppCompatActivity(), KoinScopeComponent {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by inject()
+    private var adapter: RedditPostAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getLiveData().observe(this, Observer { renderData(it)
-            Log.d("TAG 777", "$it")})
-        viewModel.getData()
+        initList()
+        setUpView()
+//        viewModel.getLiveData().observe(this, Observer { renderData(it)
+//            Log.d("TAG 777", "$it")})
+//        viewModel.getData()
+    }
+
+    private fun initList() {
+        adapter = RedditPostAdapter()
+        binding.recyclerViewHotPost.adapter = adapter
+    }
+
+
+    private fun setUpView() {
+        lifecycleScope.launch {
+            viewModel.getData().collect {
+                adapter?.submitData(it)
+            }
+        }
     }
 
     private fun renderData(appState: AppState) {

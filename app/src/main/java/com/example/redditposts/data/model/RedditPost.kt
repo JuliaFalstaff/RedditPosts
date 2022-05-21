@@ -10,5 +10,7 @@ data class RedditPost (
     @SerializedName("num_comments")
     val numComments: Int,
     @SerializedName("total_awards_received")
-    val totalAwardsReceived: Int
+    val totalAwardsReceived: Int,
+    @SerializedName("title")
+    val title: String
 )
