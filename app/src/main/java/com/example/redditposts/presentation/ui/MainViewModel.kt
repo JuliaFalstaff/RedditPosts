@@ -24,15 +24,15 @@ class MainViewModel(
                 handleError(throwable)
             })
 
-//    fun getData() {
-//        liveDataToObserve.postValue(AppState.Loading)
-//        job?.cancel()
-//        job = viewModelCoroutineScope.launch {
-//            repo.getHotRedditPosts().cachedIn(this)
-//        }
-//    }
+    fun getData() {
+        liveDataToObserve.postValue(AppState.Loading)
+        job?.cancel()
+        job = viewModelCoroutineScope.launch {
+            liveDataToObserve.postValue(AppState.Success(repo.getHotRedditPosts()))
+        }
+    }
 
-    suspend fun getData() = repo.getHotRedditPosts().cachedIn(viewModelCoroutineScope)
+    suspend fun getPagingData() = repo.getHotRedditPagingPosts().cachedIn(viewModelCoroutineScope)
 
     private fun handleError(error: Throwable) {
         liveDataToObserve.postValue(AppState.Error(error))

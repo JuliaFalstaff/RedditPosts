@@ -1,16 +1,10 @@
 package com.example.redditposts.presentation.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import com.example.redditposts.AppState
 import com.example.redditposts.databinding.ActivityMainBinding
 import com.example.redditposts.presentation.ui.adapter.RedditPostAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinScopeComponent
@@ -32,9 +26,6 @@ class MainActivity : AppCompatActivity(), KoinScopeComponent {
         setContentView(binding.root)
         initList()
         setUpView()
-//        viewModel.getLiveData().observe(this, Observer { renderData(it)
-//            Log.d("TAG 777", "$it")})
-//        viewModel.getData()
     }
 
     private fun initList() {
@@ -42,27 +33,12 @@ class MainActivity : AppCompatActivity(), KoinScopeComponent {
         binding.recyclerViewHotPost.adapter = adapter
     }
 
-
     private fun setUpView() {
-        lifecycleScope.launch {
-            viewModel.getData().collect {
-                adapter?.submitData(it)
-            }
-        }
-    }
-
-    private fun renderData(appState: AppState) {
-        when(appState) {
-            is AppState.Success -> {
-                binding.progressBar.visibility = View.INVISIBLE
-                Log.d("TAG 777", "${appState.data}")
-            }
-            is AppState.Loading -> {
-                binding.progressBar.visibility = View.VISIBLE
-            }
-            is AppState.Error -> {
-                binding.progressBar.visibility = View.INVISIBLE
-                Toast.makeText(this, "TAG 777 error: ${appState.error.message}", Toast.LENGTH_SHORT).show()
+        this.lifecycleScope.launch {
+            viewModel.getPagingData().collectLatest { pagingData ->
+                adapter = RedditPostAdapter()
+                binding.recyclerViewHotPost.adapter = adapter
+                adapter?.submitData(pagingData)
             }
         }
     }
